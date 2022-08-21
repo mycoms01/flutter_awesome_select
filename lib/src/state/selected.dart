@@ -20,6 +20,8 @@ abstract class S2Selected<T> extends ChangeNotifier {
 
   /// Returns the length of the [choice]
   int get length;
+  
+  bool _disposed = false;
 
   /// Returns `true` if there are no values in the selection
   bool get isEmpty;
@@ -87,6 +89,20 @@ abstract class S2Selected<T> extends ChangeNotifier {
 
   /// Return a [Text] widget from [toString]
   Widget toWidget() => Text(toString());
+  
+    @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
+  
 }
 
 /// State of single selected choice
